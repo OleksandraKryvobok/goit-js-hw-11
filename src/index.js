@@ -47,7 +47,7 @@ async function getSearchData() {
             refs.loadMoreBtn.classList.add('is-hidden');
         }        
         
-        if(images.hits.length > 0) {
+        if(page === 1) {
             Notify.success(`Hooray! We found ${images.totalHits} images.`);
         }
     } catch(error) {
@@ -87,14 +87,16 @@ function createMarkup(imgs) {
         refs.gallery.insertAdjacentHTML('beforeend', cardMarkup);
         gallery.refresh();
         
-        const { height: cardHeight } = document
-            .querySelector(".gallery")
-            .firstElementChild.getBoundingClientRect();
+        if(page!=1) {
+            const { height: cardHeight } = document
+                .querySelector(".gallery")
+                .firstElementChild.getBoundingClientRect();
 
-        window.scrollBy({
-            top: cardHeight * 2,
-            behavior: "smooth",
-        });
+            window.scrollBy({
+                top: cardHeight * 2,
+                behavior: "smooth",
+            });
+        }
     }
 }
 
