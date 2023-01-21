@@ -36,19 +36,19 @@ async function getSearchData() {
     try{
         const images = await fetchImages(searchQuery, page);
 
-        createMarkup(images.hits);
+        createMarkup(images.data.hits);
 
-        const btnHidden = images.hits.length !== 0 ? 
+        const btnHidden = images.data.hits.length !== 0 ? 
             refs.loadMoreBtn.classList.remove('is-hidden') : 
             refs.loadMoreBtn.classList.add('is-hidden');
 
-        if(images.hits.length === images.totalHits && images.hits.length !== 0) {
+        if(images.data.hits.length === images.totalHits && images.data.hits.length !== 0) {
             Notify.success("We're sorry, but you've reached the end of search results.");
             refs.loadMoreBtn.classList.add('is-hidden');
         }        
         
-        if(page === 1) {
-            Notify.success(`Hooray! We found ${images.totalHits} images.`);
+        if(page === 1 && images.data.hits.length !== 0) {
+            Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
         }
     } catch(error) {
         createError();
