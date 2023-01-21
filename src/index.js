@@ -1,6 +1,8 @@
 import './css/styles.css';
 import { fetchImages } from './fetchImages';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
     searchForm: document.querySelector('#search-form'),
@@ -10,6 +12,7 @@ const refs = {
 
 let searchQuery = null;
 let page = 1;
+let gallery = new SimpleLightbox('.gallery a', { captionDelay: 250 });
 
 refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
@@ -21,15 +24,24 @@ function onSearchFormSubmit(e) {
     page = 1;
     searchQuery = e.target.elements.searchQuery.value;
 
-    getDataOfSearch(); 
+    getSearchData(); 
 }
 
 function onLoadMoreBtnClick() {
     page += 1;
-    getDataOfSearch();
+    getSearchData();
+    
+    const { height: cardHeight } = document
+        .querySelector(".gallery")
+        .firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+        top: cardHeight * 2,
+        behavior: "smooth",
+    });
 }
 
-async function getDataOfSearch() {
+async function getSearchData() {
     try{
         const images = await fetchImages(searchQuery, page);
 
@@ -43,6 +55,10 @@ async function getDataOfSearch() {
             Notify.success("We're sorry, but you've reached the end of search results.");
             refs.loadMoreBtn.classList.add('is-hidden');
         }        
+        
+        if(images.hits.length <= 40) {
+            Notify.success(`Hooray! We found ${images.totalHits} images.`);
+        }
     } catch(error) {
         createError();
     }
@@ -78,10 +94,10 @@ function createMarkup(imgs) {
         `).join('');
 
         refs.gallery.insertAdjacentHTML('beforeend', cardMarkup);
+        gallery.refresh();
     }
 }
 
 function createError() {
     console.log('ERROR');
 }
-
