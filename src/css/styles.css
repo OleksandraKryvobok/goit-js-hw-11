@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+  color: #212121;
+  line-height: 1.5;
+  margin: 0;
+
+  padding: 72px 15px 15px 15px;
+}
+
+.search-form {
+  position: fixed;
+  top: 0;
+  left: 0;  
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  margin-bottom: 10px;
+  height: 55px;
+  width: 100%;
+
+  background-color: rgb(61, 63, 158);
+}
+
+.input {
+  padding-left: 10px;
+
+  height: 32px;
+  width: 250px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: none;
+}
+
+.search-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 32px;
+  width: 32px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border: none;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.photo-card {
+  flex-basis: calc((100% - 45px) / 4);
+
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 2px rgba(40, 40, 40, 0.3);
+}
+
+.photo {
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+
+  font-size: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.load-more {
+  height: 35px;
+  width: 100px;
+  background-color: rgb(61, 63, 158);
+  color:rgb(255, 255, 255);
+  border: none;
+  border-radius: 3px;
+  margin: 0 auto;
+  display: block;
+  
+}
+
+.is-hidden {
+  display: none;
+}
